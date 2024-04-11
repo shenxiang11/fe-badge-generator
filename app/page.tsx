@@ -2,47 +2,82 @@
 
 import {Card, CardBody, CardHeader} from "@nextui-org/card";
 import {Input} from "@nextui-org/input";
-import {Divider} from "@nextui-org/divider";
-import {Radio, RadioGroup} from "@nextui-org/radio";
 import {Button} from "@nextui-org/button";
-import axios from "axios";
+import {useState} from "react";
+import {Image} from "@nextui-org/image";
+import {Link} from "@nextui-org/link";
+import {Snippet} from "@nextui-org/snippet";
 
 // 啥也不干，就是拼接一个图片地址，请求会由图片发起
 
 export default function Home() {
+
+  const [username, setUsername] = useState('');
+  const [badgeUrl, setBadgeUrl] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleBadgeGenerate = () => {
+    setLoading(true);
+    setBadgeUrl(`https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2F${username}&query=message&style=for-the-badge&logo=typescript&logoColor=%23ffffff&label=Type%20Hero&labelColor=%233178c6&color=%23f4f4f5`)
+  }
+
+  const stopLoading = () => {
+    setLoading(false);
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Card className='w-full'>
-        <CardHeader>
-          <h2 className='text-center text-2xl font-medium'>Type Hero Badge Generator</h2>
-        </CardHeader>
-        <CardBody>
-          <div className='w-[400px] space-y-4'>
-            <Input label="Email" placeholder="Your Type Hero username" variant="bordered" />
+      <div className='w-screen-lg'>
+        <Card>
+          <CardHeader>
+            <h2 className='text-center text-2xl font-medium'>Type Hero Badge Generator</h2>
+          </CardHeader>
+          <CardBody>
+            <div className='w-full space-y-4'>
+              <Input
+                label="Your Type Hero username"
+                variant="bordered"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
 
-            <Divider className="my-4" />
+              <Button
+                color="primary"
+                fullWidth
+                onClick={handleBadgeGenerate}
+                isLoading={loading}
+              >
+                Generate Badge
+              </Button>
 
-            <RadioGroup
-              label="Badge style"
-              defaultValue="flat-square"
-            >
-              <Radio value="flat">flat</Radio>
-              <Radio value="flat-square">flat-square</Radio>
-              <Radio value="plastic">plastic</Radio>
-              <Radio value="for-the-badge">for-the-badge</Radio>
-              <Radio value="social">social</Radio>
-            </RadioGroup>
+              {
+                badgeUrl && (
+                  <>
+                    <div>
+                      <Link
+                        href={`https://typehero.dev/@${username}`}
+                        target="_blank"
+                      >
+                        <Image
+                          onLoad={stopLoading}
+                          onError={stopLoading}
+                          radius="none"
+                          src={badgeUrl}
+                        />
+                      </Link>
+                    </div>
 
-            <Input label="Label" />
-
-            <Button
-              color="primary"
-            >
-              Generate Badge
-            </Button>
-          </div>
-        </CardBody>
-      </Card>
+                    <Snippet
+                      variant="bordered"
+                      codeString={`![Type Hero](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2F${username}&query=message&style=for-the-badge&logo=typescript&logoColor=%23ffffff&label=Type%20Hero&labelColor=%233178c6&color=%23f4f4f5)(https://typehero.dev/@${username})`}
+                    >Copy Markdown Code</Snippet>
+                  </>
+                )
+              }
+            </div>
+          </CardBody>
+        </Card>
+      </div>
     </main>
   );
 }

@@ -15,7 +15,7 @@ export default function TypeHeroCard() {
 
   const handleBadgeGenerate = () => {
     setLoading(true);
-    setBadgeUrl(`https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2Ftypehero%2F${username}&query=message&style=for-the-badge&logo=typescript&logoColor=%23ffffff&label=Type%20Hero&labelColor=%233178c6&color=%23f4f4f5)](https://typehero.dev/@${username})`)
+    setBadgeUrl(`https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2Ftypehero%2F${username}&query=message&style=for-the-badge&logo=typescript&logoColor=%23ffffff&label=Type%20Hero&labelColor=%233178c6&color=%23f4f4f5`)
   }
 
   const stopLoading = () => {
@@ -65,7 +65,7 @@ export default function TypeHeroCard() {
 
                 <Snippet
                   variant="bordered"
-                  codeString={`[![Type Hero](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2Ftypehero%2F${username}&query=message&style=for-the-badge&logo=typescript&logoColor=%23ffffff&label=Type%20Hero&labelColor=%233178c6&color=%23f4f4f5)](https://typehero.dev/@${username})`}
+                  codeString={`[![Type Hero](${badgeUrl})](https://typehero.dev/@${username})`}
                 >Copy Markdown Code</Snippet>
               </>
             )

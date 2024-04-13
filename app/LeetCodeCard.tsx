@@ -15,7 +15,7 @@ export default function LeetCodeCard() {
 
   const handleBadgeGenerate = () => {
     setLoading(true);
-    setBadgeUrl(`https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2Fleetcode%2F${username}&query=message&style=for-the-badge&logo=typescript&logoColor=%23ffffff&label=Type%20Hero&labelColor=%233178c6&color=%23f4f4f5`)
+    setBadgeUrl(`https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2Fleetcode%2F${username}&query=message&style=for-the-badge&logo=leetcode&logoColor=yellow&label=LeetCode&labelColor=black&color=%23ffa116`)
   }
 
   const stopLoading = () => {
@@ -65,7 +65,7 @@ export default function LeetCodeCard() {
 
                 <Snippet
                   variant="bordered"
-                  codeString={`[![LeetCode](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftype-hero-badge-generator.vercel.app%2Fapi%2Fusers%2Fleetcode%2F${username}&query=message&style=for-the-badge&logo=typescript&logoColor=%23ffffff&label=Type%20Hero&labelColor=%233178c6&color=%23f4f4f5)](https://leetcode.cn/${username})`}
+                  codeString={`[![LeetCode](${badgeUrl})](https://leetcode.cn/${username})`}
                 >Copy Markdown Code</Snippet>
               </>
             )

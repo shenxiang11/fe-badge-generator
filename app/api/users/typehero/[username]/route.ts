@@ -8,7 +8,8 @@ export async function GET(request: Request, { params }: { params: { username: st
 
   try {
     const response = await axios.get(`https://typehero.dev/@${params.username}`);
-    const reg = /Solved: <span class=\"text-foreground text-xl\">(\d+)<\/span>\/<!-- -->(\d+)/g
+
+    const reg = /<text x="135" y="110" text-anchor="middle" dominant-baseline="middle" class="fill-muted-foreground group-hover:underline">Total<\/text><text x="140" y="140" text-anchor="middle" dominant-baseline="middle" class="fill-foreground text-4xl font-bold">(\d+)<\/text><text x="140" y="170" text-anchor="middle" dominant-baseline="middle" class="fill-muted-foreground text-sm">of (\d+)<\/text>/;
     const match = reg.exec(response.data);
 
     if (match) {
